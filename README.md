@@ -57,8 +57,10 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
    ```bash
     python manage.py runserver
 8. **Login ke akun yang sudah ada**
+   ```bash
      usn: elibrary
      pass: Adminku123!
+
 
 
 
