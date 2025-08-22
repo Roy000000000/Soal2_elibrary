@@ -53,5 +53,9 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
     pip install -r requirements.txt
 4. **Jalankan Server**
     python manage.py runserver
+5. **Login ke akun yang sudah ada**
+     usn: elibrary
+     pass: Adminku123!
+
 
 
