@@ -43,7 +43,7 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
 
 1. **Clone Repository**
    ```bash
-   git clone <url-repo-kamu>
+   git clone <https://github.com/Roy000000000/Soal2_elibrary.git>
    cd elibrary
 2. **Buat Virtual Environment**
     python -m venv venv
@@ -53,4 +53,5 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
     pip install -r requirements.txt
 4. **Jalankan Server**
     python manage.py runserver
+
 
