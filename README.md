@@ -51,12 +51,15 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
     venv\Scripts\activate #Win
     source venv/bin/activate  # (Linux/Mac)
 4. **Install Dependencies**
+   ```bash
     pip install -r requirements.txt
-5. **Jalankan Server**
+6. **Jalankan Server**
+   ```bash
     python manage.py runserver
-6. **Login ke akun yang sudah ada**
+8. **Login ke akun yang sudah ada**
      usn: elibrary
      pass: Adminku123!
+
 
 
 
