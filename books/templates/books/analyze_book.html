@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Hasil Analisis Buku: {{ book.title }}</h2>
+    
+    {% if keywords %}
+        <h5>Kata-kata relevan:</h5>
+        <ul>
+            {% for word in keywords %}
+            <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">Belum ada kata relevan ditemukan.</p>
+    {% endif %}
+
+    <a href="{% url 'book_detail' book.pk %}" class="btn btn-secondary mt-3">Kembali</a>
+</div>
+{% endblock %}

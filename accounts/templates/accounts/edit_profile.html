@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3>Edit Profil</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">Nama Depan</label>
+                        <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Nama Belakang</label>
+                        <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ user.email }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="avatar" class="form-label">Foto Profil</label>
+                        {% if user.userprofile.avatar %}
+                            <div class="mb-2">
+                                <img src="{{ user.userprofile.avatar.url }}" class="rounded-circle" width="100" height="100">
+                            </div>
+                        {% endif %}
+                        <input type="file" name="avatar" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Hasil Pencarian: "{{ query }}"</h2>
+<ul>
+    {% for book in books %}
+    <li>{{ book.title }} oleh {{ book.author }}</li>
+    {% empty %}
+    <li>Tidak ada hasil ditemukan.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

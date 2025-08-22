@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% load static %}
+
+{% block content %}
+<h2>Katalog Buku</h2>
+
+<!-- Filter Form (GET) -->
+<form method="get" class="mb-3 d-flex gap-2 align-items-center">
+    <select name="genre" class="form-select" style="width:150px;">
+        <option value="">Semua Genre</option>
+        {% for value, label in genre_choices %}
+        <option value="{{ value }}" {% if genre == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="favorite" class="form-select" style="width:150px;">
+        <option value="">Semua Buku</option>
+        <option value="1" {% if favorite == '1' %}selected{% endif %}>Favorit Saja</option>
+    </select>
+    <input type="text" name="q" value="{{ q }}" placeholder="Cari..." class="form-control" style="width:200px;">
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <a href="{% url 'book_list' %}" class="btn btn-secondary">Reset</a>
+</form>
+
+<!-- List Buku -->
+<ul class="list-group">
+    {% for book in books %}
+    <li class="list-group-item d-flex align-items-start">
+        <!-- Cover Image -->
+       <div class="me-3">
+    {% if book.cover %}
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" 
+             style="width:60px; height:80px; object-fit:cover;">
+    {% elif book.get_first_page_image %}
+        <img src="{{ book.get_first_page_image }}" alt="{{ book.title }}" 
+             style="width:60px; height:80px; object-fit:cover;">
+    {% else %}
+        <div style="width:60px; height:80px; background:#eee; display:flex; align-items:center; justify-content:center;">
+            <span class="text-muted">No Cover</span>
+        </div>
+    {% endif %}
+</div>
+
+
+        <!-- Book Details -->
+        <div class="flex-grow-1 me-3">
+            <h5 class="mb-1">{{ book.title }}</h5>
+            <p class="mb-1 text-muted"><strong>Penulis:</strong> {{ book.author|default:"Tidak diketahui" }}</p>
+            <p class="mb-1"><strong>Genre:</strong> {{ book.get_genre_display }}</p>
+            {% if book.description %}
+            <p class="mb-1 text-muted">{{ book.description|truncatechars:100 }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Favorite Button (POST Form) -->
+        <div class="d-flex flex-column align-items-center">
+            <form method="post" action="{% url 'toggle_favorite' book.pk %}" class="mb-2">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="btn btn-link p-0 border-0" title="{% if book.favorite %}Hapus dari Favorit{% else %}Tambahkan ke Favorit{% endif %}">
+                    {% if book.favorite %}
+                    <i class="fas fa-star text-warning" style="font-size: 24px;"></i>
+                    {% else %}
+                    <i class="far fa-star text-secondary" style="font-size: 24px;"></i>
+                    {% endif %}
+                </button>
+            </form>
+            
+            <!-- Detail Button -->
+            <a href="{% url 'book_detail' book.pk %}" class="btn btn-sm btn-info">Detail</a>
+        </div>
+    </li>
+    {% empty %}
+    <li class="list-group-item text-center py-4">
+        <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+        <p class="text-muted">Tidak ada buku ditemukan.</p>
+        {% if favorite == '1' %}
+        <p class="text-muted">Anda belum menandai buku sebagai favorit.</p>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Pagination -->
+{% if is_paginated %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1{% if genre %}&genre={{ genre }}{% endif %}{% if favorite %}&favorite={{ favorite }}{% endif %}{% if q %}&q={{ q }}{% endif %}">
+                &laquo; First
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if genre %}&genre={{ genre }}{% endif %}{% if favorite %}&favorite={{ favorite }}{% endif %}{% if q %}&q={{ q }}{% endif %}">
+                &lsaquo; Prev
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&laquo; First</span>
+        </li>
+        <li class="page-item disabled">
+            <span class="page-link">&lsaquo; Prev</span>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if genre %}&genre={{ genre }}{% endif %}{% if favorite %}&favorite={{ favorite }}{% endif %}{% if q %}&q={{ q }}{% endif %}">
+                Next &rsaquo;
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if genre %}&genre={{ genre }}{% endif %}{% if favorite %}&favorite={{ favorite }}{% endif %}{% if q %}&q={{ q }}{% endif %}">
+                Last &raquo;
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">Next &rsaquo;</span>
+        </li>
+        <li class="page-item disabled">
+            <span class="page-link">Last &raquo;</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+<!-- Load Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    .list-group-item {
+        transition: background-color 0.2s;
+    }
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+    .btn-link:hover {
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %}

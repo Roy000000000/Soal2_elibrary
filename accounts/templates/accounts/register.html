@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4" style="width: 450px; border-radius: 15px;">
+    <h3 class="text-center mb-4">Register</h3>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- Loop Field Django -->
+      {% for field in form %}
+      <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="text-danger small">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <!-- Button -->
+      <button type="submit" class="btn btn-success w-100">Register</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <small>Sudah punya akun? <a href="{% url 'login' %}">Login</a></small>
+    </div>
+  </div>
+</div>
+{% endblock %}

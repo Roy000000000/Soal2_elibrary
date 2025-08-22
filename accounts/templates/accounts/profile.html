@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3>Profil Pengguna</h3>
+            </div>
+            <div class="card-body text-center">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" class="rounded-circle mb-3" width="120" height="120">
+                {% else %}
+                    <i class="fas fa-user-circle fa-5x text-secondary mb-3"></i>
+                {% endif %}
+                
+                <div class="mb-3"><strong>Nama:</strong> {{ user.first_name }} {{ user.last_name }}</div>
+                <div class="mb-3"><strong>Username:</strong> {{ user.username }}</div>
+                <div class="mb-3"><strong>Email:</strong> {{ profile.email|default:user.email|default:"Tidak ada email" }}</div>
+                <div class="mb-3"><strong>Bergabung sejak:</strong> {{ user.date_joined|date:"d M Y" }}</div>
+
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary me-2">Edit Profil</a>
+                <a href="{% url 'change_password' %}" class="btn btn-warning">Ubah Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

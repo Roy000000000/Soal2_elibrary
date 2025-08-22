@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="card p-4 shadow-sm">
+
+    <!-- Cover/Thumbnail -->
+    <div class="text-center mb-4">
+        {% if book.cover %}
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" 
+                 class="img-fluid rounded" style="max-height:300px;">
+        {% elif book.get_first_page_image %}
+            <img src="{{ book.get_first_page_image }}" alt="{{ book.title }}" class="img-fluid" style="max-height:300px;">
+        {% else %}
+            <img src="{% static 'img/no-cover.png' %}" alt="No Cover" 
+                 class="img-fluid rounded" style="max-height:300px; background:#f0f0f0;">
+        {% endif %}
+    </div>
+
+    <!-- Detail Buku -->
+    <h2 class="mb-3">{{ book.title }}</h2>
+    <p><strong>Penulis:</strong> {{ book.author|default:"Tidak diketahui" }}</p>
+    <p><strong>Genre:</strong> {{ book.get_genre_display }}</p>
+    <p><strong>Tahun:</strong> {{ book.year|default:"-" }}</p>
+    <p><strong>Jumlah Halaman:</strong> {{ book.pages|default:"-" }}</p>
+    <p><strong>Deskripsi:</strong> {{ book.description|default:"-" }}</p>
+
+    <!-- Favorite -->
+    <form method="post" action="{% url 'toggle_favorite' book.pk %}" class="my-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-warning">
+            {% if book.favorite %}
+                <i class="fas fa-star text-warning"></i> Hapus dari Favorit
+            {% else %}
+                <i class="far fa-star"></i> Tambah ke Favorit
+            {% endif %}
+        </button>
+    </form>
+
+    <!-- Tombol Aksi -->
+    <div class="d-flex gap-2">
+        {% if book.pdf %}
+            <a href="{% url 'preview_book' book.pk 1 %}" target="_blank" class="btn btn-primary">Baca Buku</a>
+        {% endif %}
+        <a href="{% url 'edit_book' book.pk %}" 
+           class="btn btn-warning" 
+           onclick="return confirm('Yakin mau edit buku ini?')">
+            Edit
+        </a>
+        <form method="post" action="{% url 'delete_book' book.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin mau hapus buku ini?')">
+                Hapus
+            </button>
+        </form>
+        <a href="{% url 'analyze_book' book.pk %}" class="btn btn-info">Analisis</a>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

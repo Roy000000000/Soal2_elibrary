@@ -1,0 +1,56 @@
+# 📚 Soal E-Library
+
+Proyek ini adalah soal no 2 berbasis Django yang digunakan untuk mengelola katalog buku digital.  
+Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencarian, filter berdasarkan genre/favorit, serta manajemen akun pengguna.
+
+---
+
+## 🚀 Fitur Utama
+- 🔐 **Autentikasi User**
+  - Register, login, logout
+  - Proteksi halaman dengan `@login_required`
+
+- 📚 **Bagian Buku**
+  - Tambah / edit / hapus buku
+  - Upload file PDF & cover
+  - Auto hitung jumlah halaman PDF (pakai **PyMuPDF**)
+  - Konversi PDF menjadi gambar halaman
+
+- ⭐ **Favorit Buku**
+  - Tandai atau hapus tanda favorit
+  - Filter khusus favorit
+
+- 🔎 **Pencarian & Filter**
+  - Pencarian berdasarkan judul, penulis, deskripsi, tahun
+  - Filter berdasarkan genre
+  - Pagination
+
+- 👤 **Profil Pengguna**
+  - Menampilkan buku yang diupload oleh user
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+- [Django](https://www.djangoproject.com/) – Backend framework
+- [SQLite3](https://www.sqlite.org/) – Database default
+- [Bootstrap 5](https://getbootstrap.com/) – UI framework
+- [Font Awesome](https://fontawesome.com/) – Ikon
+- [PyMuPDF (fitz)](https://pymupdf.readthedocs.io/) – Membaca & menghitung halaman PDF, konversi ke gambar
+
+---
+
+## ⚙️ Instalasi & Menjalankan
+
+1. **Clone Repository**
+   ```bash
+   git clone <url-repo-kamu>
+   cd elibrary
+2. **Buat Virtual Environment**
+    python -m venv venv
+    venv\Scripts\activate #Win
+    source venv/bin/activate  # (Linux/Mac)
+3. **Install Dependencies**
+    pip install -r requirements.txt
+4. **Jalankan Server**
+    python manage.py runserver
+

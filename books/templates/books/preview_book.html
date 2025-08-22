@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center">
+
+    <!-- Top Navbar -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{% url 'book_detail' book.pk %}" class="btn btn-secondary">&lt; Back</a>
+        <span>Halaman {{ page }} / {{ total_pages }}</span>
+    </div>
+
+    <!-- Halaman Buku -->
+    <div>
+        <img src="/media/books/pages/{{ book.id }}/page_{{ page }}.png" 
+             alt="Halaman {{ page }}" class="img-fluid border" style="max-height:80vh;">
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="mt-3">
+        {% if page > 1 %}
+            <a href="{% url 'preview_book' book.pk page|add:'-1' %}" class="btn btn-primary">Previous</a>
+        {% else %}
+            <button class="btn btn-primary" disabled>Previous</button>
+        {% endif %}
+
+        {% if page < total_pages %}
+            <a href="{% url 'preview_book' book.pk page|add:'1' %}" class="btn btn-primary">Next</a>
+        {% else %}
+            <button class="btn btn-primary" disabled>Next</button>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
