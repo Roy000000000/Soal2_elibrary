@@ -46,16 +46,18 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
    git clone <https://github.com/Roy000000000/Soal2_elibrary.git>
    cd elibrary
 2. **Buat Virtual Environment**
+   ```bash
     python -m venv venv
     venv\Scripts\activate #Win
     source venv/bin/activate  # (Linux/Mac)
-3. **Install Dependencies**
+4. **Install Dependencies**
     pip install -r requirements.txt
-4. **Jalankan Server**
+5. **Jalankan Server**
     python manage.py runserver
-5. **Login ke akun yang sudah ada**
+6. **Login ke akun yang sudah ada**
      usn: elibrary
      pass: Adminku123!
+
 
 
 
