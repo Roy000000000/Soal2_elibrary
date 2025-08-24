@@ -36,6 +36,7 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
 - [Bootstrap 5](https://getbootstrap.com/) – UI framework
 - [Font Awesome](https://fontawesome.com/) – Ikon
 - [PyMuPDF (fitz)](https://pymupdf.readthedocs.io/) – Membaca & menghitung halaman PDF, konversi ke gambar
+- Python 3.11 – 3.13(disarankan)
 
 ---
 
@@ -60,6 +61,7 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
    ```bash
      usn: elibrary
      pass: Adminku123!
+
 
 
 
