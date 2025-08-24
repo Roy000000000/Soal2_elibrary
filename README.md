@@ -5,8 +5,8 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
 
 ---
 
-## 🚀 Fitur Utama
-- 🔐 **Autentikasi User**
+##  Fitur Utama
+-  **Autentikasi User**
   - Register, login, logout
   - Proteksi halaman dengan `@login_required`
 
@@ -16,16 +16,16 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
   - Auto hitung jumlah halaman PDF (pakai **PyMuPDF**)
   - Konversi PDF menjadi gambar halaman
 
-- ⭐ **Favorit Buku**
+-  **Favorit Buku**
   - Tandai atau hapus tanda favorit
   - Filter khusus favorit
 
-- 🔎 **Pencarian & Filter**
+-  **Pencarian & Filter**
   - Pencarian berdasarkan judul, penulis, deskripsi, tahun
   - Filter berdasarkan genre
   - Pagination
 
-- 👤 **Profil Pengguna**
+-  **Profil Pengguna**
   - Menampilkan buku yang diupload oleh user
 
 ---
@@ -60,6 +60,7 @@ Fitur utama meliputi upload buku (PDF + cover), konversi PDF ke gambar, pencaria
    ```bash
      usn: elibrary
      pass: Adminku123!
+
 
 
 
